@@ -1,0 +1,61 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// } Driver Code Ends
+class Solution
+{   
+    public:  
+    //Function to find transpose of a matrix.
+    void transpose(vector<vector<int> >& matrix, int n)
+    { 
+        // code here 
+        // swap upper triangular matrix with the lower triangular matrix
+        // that's why we run 'j' from 'i+1' to 'n'
+        // and not (j : n)
+        if(n == 1)
+            return;
+        
+        for(int i=0; i<n; i++)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+        return;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin>>t;
+    
+    while(t--) 
+    {
+        int n;
+        cin>>n;
+        vector<vector<int> > matrix(n,vector<int>(n)); 
+
+        for(int i=0; i<n; i++)
+        {
+            for( int j=0; j<n; j++)
+            {
+                cin>>matrix[i][j];
+            }
+        }
+
+        Solution ob;
+        ob.transpose(matrix,n);
+        for (int i = 0; i < n; ++i)
+        {
+            for (int j = 0; j < n; ++j)
+                cout<<matrix[i][j]<<" ";
+            cout<<endl;
+        }
+    }
+    return 0;
+}
+// } Driver Code Ends
