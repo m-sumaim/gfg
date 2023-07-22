@@ -38,9 +38,9 @@ class Solution
         // Add code here
         unordered_map<int, int> freq;
         Node *curr = head;
-        freq[curr->data]++;
-        curr = curr->next;
-        int count = 1;
+        // freq[curr->data]++;
+        // curr = curr->next;
+         int count = 0;
         while(curr != NULL)
         {
             freq[curr->data]++;
