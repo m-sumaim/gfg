@@ -13,54 +13,58 @@ using namespace std;
 class Solution 
 {
     public:
-    bool isSafe(int grid[9][9],int num,int i,int j) 
+    //Function to find a solved Sudoku. 
+    bool isSafe(int grid[9][9], int num, int i, int j)
     {
-        for(int x=0;x<9;x++)                            // check for same row and col
-        if(grid[i][x]==num || grid[x][j]==num)
-        return false;
-
-        int sx = (i/3)*3, sy = (j/3)*3;                 // get the starting pos of each sub matrix (sx, sy)
-        for(int x=sx;x<sx+3;x++)                        // check if i,j found in 3*3 sub matrix
-        {
-            for(int y=sy;y<sy+3;y++)
-            if(grid[x][y]==num)
-            return false;
-        }
+        for(int x=0; x<9; x++)
+            if(grid[i][x]==num || grid[x][j]==num)
+                return false;
+        
+        // get the starting pos of each sub matrix (sx, sy)
+        int sx = (i/3)*3, sy = (j/3)*3;
+        
+        // check if i,j found in 3*3 sub matrix
+        for(int x=sx; x<sx+3; x++)
+            for(int y = sy; y<sy+3; y++)
+                if(grid[x][y]==num)
+                    return false;
         
         return true;
     }
     
-    bool helper(int grid[9][9],int i,int j) 
+    bool helper(int grid[9][9], int i, int j)
     {
-        if(i==9)                                            // if end is reached
-        return true;
+        if(i==9)                            // if last row
+            return true;            
+        if(j==9)
+            return helper(grid, i+1, 0);    // last column, change row
         
-        if(j==9)                                            // if a row is completed move to next
-        return helper(grid,i+1,0);
-
-        if(grid[i][j]!=0)                                   // if cell already assigned, move to next
-        return helper(grid,i,j+1);
+        if(grid[i][j] !=0)                  // if set, call on next element
+            return helper(grid, i, j+1);
         
-        for(int n=1;n<=9;n++)                               // assign 1-9 for each cell
+        for(int n=1; n<=9; n++)
         {
-            if(isSafe(grid,n,i,j))
+            if(isSafe(grid, n, i, j))
             {
                 grid[i][j] = n;
-                if(helper(grid,i,j+1)) 
-                return true;
+                if(helper(grid, i, j+1))
+                    return true;
             }
         }
-        grid[i][j] = 0;                                     // remove the assumed value and backtrack
+        grid[i][j] = 0;                 // remove the assumed value and backtrack
         return false;
     }
     
     bool SolveSudoku(int grid[N][N])  
     { 
-        return helper(grid,0,0);
+        // Your code here
+        return helper(grid, 0,0);
     }
     
+    //Function to print grids of the Sudoku.
     void printGrid (int grid[N][N]) 
     {
+        // Your code here 
         for(int i=0;i<9;i++)
         {
             for(int j=0;j<9;j++)
