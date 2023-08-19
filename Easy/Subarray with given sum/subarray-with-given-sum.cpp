@@ -11,19 +11,17 @@ class Solution
     vector<int> subarraySum(vector<int>arr, int n, long long s)
     {
         // Your code here
-        long long sum =0;
-        int right = 0, left = 0;
-      
-        while(right<n){
-            sum+=arr[right];
-            while(sum>s)
-                sum -= arr[left++];
-            
-            if(sum == s && left <= right)
-                return {left+1, right+1};
-            
-            right++;
-            
+        int l=0, r=0, sum=0;
+        if(s==0)
+            return {-1};
+        while(r<=n)
+        {
+            if(sum < s)
+                sum+=arr[r++];
+            else if(sum == s)
+                return {l+1, r};
+            else if(sum > s)
+                sum -=arr[l++];
         }
         return {-1};
     }
