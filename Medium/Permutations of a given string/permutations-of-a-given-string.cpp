@@ -5,41 +5,38 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-    private:
-        void helper(string s, int ind, set<string> &st)
-        {
-            if(ind == s.size() - 1){            // insert into sol only when we reach till end(l == r)
-                st.insert(s);
-                return;
-            }
-            
-            for(int i= ind; i<s.size(); i++)
-            {
-                swap(s[i], s[ind]);             // swap
-                helper(s, ind+1, st);
-                swap(s[i], s[ind]);             // backtract to get original
-            }
-        }
-    
 	public:
+	    void helper(set<string> &sol, string S, int l, int r)
+	    {
+	        if(l==r)
+	        {
+	            sol.insert(S);
+	            return;
+	        }
+	        
+	        for(int i=l; i<r; i++)
+	        {
+	            swap(S[i], S[l]);
+	            helper(sol, S, l+1, r);
+	            swap(S[i], S[l]);
+	        }
+	    }
 	
-// Time : O(N* N!)
-// Space : O(N * N!)
-	    
-		vector<string>find_permutation(string s)
+	
+	
+		vector<string>find_permutation(string S)
 		{
-		   vector<string> ans;
-		   set<string> st;
-		   helper(s, 0, st);
-		   for(auto it: st)
-		        ans.push_back(it);
-		  
-		  return ans;
-		   
+		    // Code here there
+		    vector<string> res;
+		    set<string> sol;
+		    int n = S.length();
+		    helper(sol, S, 0, n);
+		    int m = sol.size();
+		    for(auto i : sol)
+		        res.push_back(i);
+		    return res;
 		}
 };
-
- 
 
 
 
