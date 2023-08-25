@@ -8,44 +8,24 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:	
-// Recursion
-// 	int palindrome(int l, string S){
-	    
-// 	   if(l >= (S.size() / 2))
-// 	        return 1;
-// 	   if(S[l] != S[S.size() - l - 1])
-// 	        return 0;
-// 	   return palindrome(l+1, S);
-// 	}
 	
-// 	int isPalindrome(string S)
-// 	{
-// 	    int sol = palindrome(0, S);
-// 	    return sol;
-// 	}
 	
-// Two pointer
-int isPalindrome(string S){
-    int l = 0;
-    int r = S.size() - 1;
-    while(l<=r)
-    {
-        if(S[l] != S[r])
-            return 0;
-        
-        l++;
-        r--;
-    }
-    return 1;
-}
-
-//reverse() function
-// int isPalindrome(string str)
-//     {
-//         string k=str;
-//         reverse(str.begin(),str.end());
-//         return str==k;
-//     }
+	int isPalindrome(string S)
+	{
+	    // Your code goes here
+	    if(S.size() == 1)
+	        return 1;
+	    int l=0, r = S.size()-1;
+	    while(l<=r){
+	        if(S[l] == S[r])
+	        {
+	            l++; r--;
+	        }else{
+	            return 0;
+	        }
+	    }
+	    return 1;
+	}
 
 };
 
