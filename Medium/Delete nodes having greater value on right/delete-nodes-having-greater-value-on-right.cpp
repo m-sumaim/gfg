@@ -46,40 +46,44 @@ struct Node
 class Solution
 {
     public:
-    Node *compute(Node *head)
+    Node *reverse(Node *head)
     {
-        // your code goes here
-        if(head == NULL or head ->next == NULL)
-            return head;
-        // if curr > curr->next then copy next to curr
-        // then delete curr->next
-        // then start from the head again
-        // else iterate
+        // reverse the list
+        if(head == NULL)
+            return NULL;
         Node *curr = head;
-        while(curr->next != NULL)
-        {
-            if(curr->data < curr->next->data)
-            {
-                curr->data = curr->next->data;
-                Node *temp = curr->next;                // first store next to be dlelted
-                curr->next = curr->next->next;
-                delete temp;
-                curr = head;
-            }else{
-                curr = curr->next;
-            }
+        Node *prev = NULL, * next = NULL;
+        while(curr != NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
+        head = prev;
         return head;
     }
-  // there could still be many more approaches  
-  // -- Recursion --
-//   Node *compute(Node *head)
-//     {
-//         if (!head->next)
-//             return head;
-//         head->next=compute(head->next);
-//         return (head->data < head->next->data)?head->next:head;
-//     }
+    
+    Node *compute(Node *head){
+        if(head == NULL or head->next == NULL)
+            return head;
+        
+        head = reverse(head);
+        Node* curr = head;
+        int maxi = head->data;
+        
+        while(curr->next != NULL){
+            if(curr->data <= curr->next->data){
+                maxi = curr->next->data;
+                curr = curr->next;
+            }else{
+                curr->next = curr->next->next;
+            }
+        }
+        
+        Node *final = reverse(head);
+        return final;
+    }
+    
 };
    
 
