@@ -9,8 +9,7 @@ using namespace std;
 
 class Solution{
 public:
-    bool isPalindrome(string &s, int i, int j)
-    {
+    bool isPalindrome(string &s, int i, int j){
         while(i<=j)
             if(s[i++] != s[j--])
                 return false;
@@ -22,19 +21,20 @@ public:
     int palindromicPartition(string str)
     {
         // code here
-        int n = str.size();
-        int t[n+1] = {0};
-        t[n] = 0;
-        for(int i=n-1; i>=0; i--)
+        int N = str.size();
+        int t[N+1] = {0};
+        t[N] = 0;
+        
+        for(int i=N-1; i>=0; i--)
         {
             int mini = INT_MAX;
-            for(int j=i; j<n; j++)
-            {
-                if(isPalindrome(str, i, j))
-                {
+            
+            for(int j = i; j<N; j++){
+                if(isPalindrome(str, i, j)){
                     int ans = 1 + t[j+1];
                     mini = min(mini, ans);
                 }
+                
                 t[i] = mini;
             }
         }
